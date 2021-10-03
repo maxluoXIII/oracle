@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'components/attribute.dart';
+import 'models/character.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => CharacterModel(), child: OracleApp()));
 }
 
-class MyApp extends StatelessWidget {
+class OracleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Project Oracle',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,13 +27,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: OracleHomePage(title: 'Project Oracle Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class OracleHomePage extends StatefulWidget {
+  OracleHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,10 +47,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _OracleHomePageState createState() => _OracleHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _OracleHomePageState extends State<OracleHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -93,6 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Consumer<CharacterModel>(builder: (context, character, child) {
+              return Text(
+                  'Name: ${character.name}; Health: ${character.hitPoints.baseValue}');
+            }),
+            AttributeComponent(
+                attribute: Provider.of<CharacterModel>(context, listen: false)
+                    .hitPoints),
             Text(
               'You have pushed the button this many times:',
             ),
