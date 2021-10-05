@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'components/attribute.dart';
+import 'models/attribute.dart';
 import 'models/character.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class OracleApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
       home: OracleHomePage(title: 'Project Oracle Home Page'),
     );
@@ -99,8 +101,14 @@ class _OracleHomePageState extends State<OracleHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Consumer<CharacterModel>(builder: (context, character, child) {
-              return Text(
-                  'Name: ${character.name}; Health: ${character.hitPoints.baseValue}');
+              return ChangeNotifierProvider(
+                create: (context) => character.hitPoints,
+                child: Consumer<AttributeModel>(
+                    builder: (context, attribute, child) {
+                  return Text(
+                      'Name: ${character.name}; Health: ${character.hitPoints.baseValue}');
+                }),
+              );
             }),
             AttributeComponent(
                 attribute: Provider.of<CharacterModel>(context, listen: false)
