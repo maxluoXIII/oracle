@@ -20,15 +20,24 @@ class _AttributeComponentState extends State<AttributeComponent> {
         child: Consumer<AttributeModel>(builder: (context, attribute, child) {
           return Container(
             alignment: Alignment.center,
-            constraints: BoxConstraints.loose(Size.fromWidth(300)),
+            padding: const EdgeInsets.only(left: 5, bottom: 5),
             child: Row(children: [
-              Text(attribute.finalValue.toString()),
-              Flexible(
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: SelectableText.rich(TextSpan(text: "${attribute.name}: ",
+                    children: [
+                  TextSpan(
+                      text: "${attribute.finalValue}",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ])),
+              ),
+              Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                       labelText: "Base value", border: OutlineInputBorder()),
-                  onSubmitted: (String newValue) => // may want to try using Focus widget
-                      attribute.baseValue = newValue,
+                  onSubmitted:
+                      (String newValue) => // may want to try using Focus widget
+                          attribute.baseValue = newValue,
                 ),
               ),
             ]),

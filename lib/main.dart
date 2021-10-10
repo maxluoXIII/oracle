@@ -37,10 +37,6 @@ class OracleApp extends StatelessWidget {
 class OracleHomePage extends StatefulWidget {
   OracleHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
   // This class is the configuration for the state. It holds the values (in this
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
@@ -53,81 +49,127 @@ class OracleHomePage extends StatefulWidget {
 }
 
 class _OracleHomePageState extends State<OracleHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    // This method is rerun every time setState is called
+    CharacterModel character =
+        Provider.of<CharacterModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Consumer<CharacterModel>(builder: (context, character, child) {
-              return ChangeNotifierProvider(
-                create: (context) => character.hitPoints,
-                child: Consumer<AttributeModel>(
-                    builder: (context, attribute, child) {
-                  return Text(
-                      'Name: ${character.name}; Health: ${character.hitPoints.baseValue}');
-                }),
-              );
-            }),
-            AttributeComponent(
-                attribute: Provider.of<CharacterModel>(context, listen: false)
-                    .hitPoints),
-            Text(
-              'You have pushed the button this many times:',
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    AttributeComponent(
+                      attribute: character.name,
+                    ),
+                    AttributeComponent(attribute: character.hitPoints),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.strength)),
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.dexterity)),
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.constitution)),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.intelligence)),
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.wisdom)),
+                        Expanded(
+                            flex: 1,
+                            child: AttributeComponent(
+                                attribute: character.charisma)),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    AttributeComponent(attribute: character.fortitude),
+                    AttributeComponent(attribute: character.reflex),
+                    AttributeComponent(attribute: character.will)
+                  ],
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5, right: 5),
+                child: ListView(
+                  children: [
+                    AttributeComponent(attribute: character.acrobatics),
+                    AttributeComponent(attribute: character.appraise),
+                    AttributeComponent(attribute: character.bluff),
+                    AttributeComponent(attribute: character.climb),
+                    AttributeComponent(attribute: character.craft1),
+                    AttributeComponent(attribute: character.craft2),
+                    AttributeComponent(attribute: character.diplomacy),
+                    AttributeComponent(attribute: character.disableDevice),
+                    AttributeComponent(attribute: character.disguise),
+                    AttributeComponent(attribute: character.escapeArtist),
+                    AttributeComponent(attribute: character.fly),
+                    AttributeComponent(attribute: character.handleAnimal),
+                    AttributeComponent(attribute: character.heal),
+                    AttributeComponent(attribute: character.intimidate),
+                    AttributeComponent(attribute: character.knowledgeArcana),
+                    AttributeComponent(
+                        attribute: character.knowledgeDungeoneering),
+                    AttributeComponent(
+                        attribute: character.knowledgeEngineering),
+                    AttributeComponent(attribute: character.knowledgeGeography),
+                    AttributeComponent(attribute: character.knowledgeHistory),
+                    AttributeComponent(attribute: character.knowledgeLocal),
+                    AttributeComponent(attribute: character.knowledgeNature),
+                    AttributeComponent(attribute: character.knowledgeNobility),
+                    AttributeComponent(attribute: character.knowledgePlanes),
+                    AttributeComponent(attribute: character.knowledgeReligion),
+                    AttributeComponent(attribute: character.linguistics),
+                    AttributeComponent(attribute: character.perception),
+                    AttributeComponent(attribute: character.perform1),
+                    AttributeComponent(attribute: character.perform2),
+                    AttributeComponent(attribute: character.perform3),
+                    AttributeComponent(attribute: character.profession1),
+                    AttributeComponent(attribute: character.profession2),
+                    AttributeComponent(attribute: character.ride),
+                    AttributeComponent(attribute: character.senseMotive),
+                    AttributeComponent(attribute: character.sleightOfHand),
+                    AttributeComponent(attribute: character.spellcraft),
+                    AttributeComponent(attribute: character.stealth),
+                    AttributeComponent(attribute: character.survival),
+                    AttributeComponent(attribute: character.swim),
+                    AttributeComponent(attribute: character.useMagicDevice),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
