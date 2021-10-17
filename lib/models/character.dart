@@ -1,61 +1,88 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:oracle/models/attribute.dart';
 
 class CharacterModel with ChangeNotifier {
-  StringAttributeModel name = StringAttributeModel("Name");
-  IntAttributeModel hitPoints = IntAttributeModel("Health");
+  static int _nextId = 0;
+  static int get nextId => _nextId++;
+  static set nextId(int next) {
+    _nextId = next;
+  }
+
+  CharacterModel()
+      : name = StringAttributeModel("Name", nextId),
+        hitPoints = IntAttributeModel("Health", nextId),
+        race = StringAttributeModel("Race", nextId),
+        alignment = StringAttributeModel("Alignment", nextId),
+        strength = IntAttributeModel("Strength", nextId),
+        dexterity = IntAttributeModel("Dexterity", nextId),
+        constitution = IntAttributeModel("Constitution", nextId),
+        intelligence = IntAttributeModel("Intelligence", nextId),
+        wisdom = IntAttributeModel("Wisdom", nextId),
+        charisma = IntAttributeModel("Charisma", nextId),
+        fortitude = IntAttributeModel("Fortitude", nextId),
+        reflex = IntAttributeModel("Reflex", nextId),
+        will = IntAttributeModel("Will", nextId),
+        skills = [
+          IntAttributeModel("Acrobatics", nextId),
+          IntAttributeModel("Appraise", nextId),
+          IntAttributeModel("Bluff", nextId),
+          IntAttributeModel("Climb", nextId),
+          IntAttributeModel("Craft1", nextId),
+          IntAttributeModel("Craft2", nextId),
+          IntAttributeModel("Diplomacy", nextId),
+          IntAttributeModel("Disable Device", nextId),
+          IntAttributeModel("Disguise", nextId),
+          IntAttributeModel("Escape Artist", nextId),
+          IntAttributeModel("Fly", nextId),
+          IntAttributeModel("Handle Animal", nextId),
+          IntAttributeModel("Heal", nextId),
+          IntAttributeModel("Intimidate", nextId),
+          IntAttributeModel("Knowledge Arcana", nextId),
+          IntAttributeModel("Knowledge Dungeoneering", nextId),
+          IntAttributeModel("Knowledge Engineering", nextId),
+          IntAttributeModel("Knowledge Geography", nextId),
+          IntAttributeModel("Knowledge History", nextId),
+          IntAttributeModel("Knowledge Local", nextId),
+          IntAttributeModel("Knowledge Nature", nextId),
+          IntAttributeModel("Knowledge Nobility", nextId),
+          IntAttributeModel("Knowledge Planes", nextId),
+          IntAttributeModel("Knowledge Religion", nextId),
+          IntAttributeModel("Linguistics", nextId),
+          IntAttributeModel("Perception", nextId),
+          IntAttributeModel("Perform1", nextId),
+          IntAttributeModel("Perform2", nextId),
+          IntAttributeModel("Perform3", nextId),
+          IntAttributeModel("Profession1", nextId),
+          IntAttributeModel("Profession2", nextId),
+          IntAttributeModel("Ride", nextId),
+          IntAttributeModel("Sense Motive", nextId),
+          IntAttributeModel("Sleight of Hand", nextId),
+          IntAttributeModel("Spellcraft", nextId),
+          IntAttributeModel("Stealth", nextId),
+          IntAttributeModel("Survival", nextId),
+          IntAttributeModel("Swim", nextId),
+          IntAttributeModel("Use Magic Device", nextId),
+        ];
+
+  StringAttributeModel name;
+  IntAttributeModel hitPoints;
+  StringAttributeModel race;
+  StringAttributeModel alignment;
 
   // Statblock
-  IntAttributeModel strength = IntAttributeModel("Strength");
-  IntAttributeModel dexterity = IntAttributeModel("Dexterity");
-  IntAttributeModel constitution = IntAttributeModel("Constitution");
-  IntAttributeModel intelligence = IntAttributeModel("Intelligence");
-  IntAttributeModel wisdom = IntAttributeModel("Wisdom");
-  IntAttributeModel charisma = IntAttributeModel("Charisma");
+  IntAttributeModel strength;
+  IntAttributeModel dexterity;
+  IntAttributeModel constitution;
+  IntAttributeModel intelligence;
+  IntAttributeModel wisdom;
+  IntAttributeModel charisma;
 
   // Saves
-  IntAttributeModel fortitude = IntAttributeModel("Fortitude");
-  IntAttributeModel reflex = IntAttributeModel("Reflex");
-  IntAttributeModel will = IntAttributeModel("Will");
+  IntAttributeModel fortitude;
+  IntAttributeModel reflex;
+  IntAttributeModel will;
 
   // Skills
-  IntAttributeModel acrobatics = IntAttributeModel("Acrobatics");
-  IntAttributeModel appraise = IntAttributeModel("Appraise");
-  IntAttributeModel bluff = IntAttributeModel("Bluff");
-  IntAttributeModel climb = IntAttributeModel("Climb");
-  IntAttributeModel craft1 = IntAttributeModel("Craft1");
-  IntAttributeModel craft2 = IntAttributeModel("Craft2");
-  IntAttributeModel diplomacy = IntAttributeModel("Diplomacy");
-  IntAttributeModel disableDevice = IntAttributeModel("Disable Device");
-  IntAttributeModel disguise = IntAttributeModel("Disguise");
-  IntAttributeModel escapeArtist = IntAttributeModel("Escape Artist");
-  IntAttributeModel fly = IntAttributeModel("Fly");
-  IntAttributeModel handleAnimal = IntAttributeModel("Handle Animal");
-  IntAttributeModel heal = IntAttributeModel("Heal");
-  IntAttributeModel intimidate = IntAttributeModel("Intimidate");
-  IntAttributeModel knowledgeArcana = IntAttributeModel("Knowledge Arcana");
-  IntAttributeModel knowledgeDungeoneering = IntAttributeModel("Knowledge Dungeoneering");
-  IntAttributeModel knowledgeEngineering = IntAttributeModel("Knowledge Engineering");
-  IntAttributeModel knowledgeGeography = IntAttributeModel("Knowledge Geography");
-  IntAttributeModel knowledgeHistory = IntAttributeModel("Knowledge History");
-  IntAttributeModel knowledgeLocal = IntAttributeModel("Knowledge Local");
-  IntAttributeModel knowledgeNature = IntAttributeModel("Knowledge Nature");
-  IntAttributeModel knowledgeNobility = IntAttributeModel("Knowledge Nobility");
-  IntAttributeModel knowledgePlanes = IntAttributeModel("Knowledge Planes");
-  IntAttributeModel knowledgeReligion = IntAttributeModel("Knowledge Religion");
-  IntAttributeModel linguistics = IntAttributeModel("Linguistics");
-  IntAttributeModel perception = IntAttributeModel("Perception");
-  IntAttributeModel perform1 = IntAttributeModel("Perform1");
-  IntAttributeModel perform2 = IntAttributeModel("Perform2");
-  IntAttributeModel perform3 = IntAttributeModel("Perform3");
-  IntAttributeModel profession1 = IntAttributeModel("Profession1");
-  IntAttributeModel profession2 = IntAttributeModel("Profession2");
-  IntAttributeModel ride = IntAttributeModel("Ride");
-  IntAttributeModel senseMotive = IntAttributeModel("Sense Motive");
-  IntAttributeModel sleightOfHand = IntAttributeModel("Sleight of Hand");
-  IntAttributeModel spellcraft = IntAttributeModel("Spellcraft");
-  IntAttributeModel stealth = IntAttributeModel("Stealth");
-  IntAttributeModel survival = IntAttributeModel("Survival");
-  IntAttributeModel swim = IntAttributeModel("Swim");
-  IntAttributeModel useMagicDevice = IntAttributeModel("Use Magic Device");
+  List<IntAttributeModel> skills;
 }

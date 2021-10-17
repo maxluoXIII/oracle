@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 
 abstract class AttributeModel with ChangeNotifier {
+  AttributeModel(String name, int id)
+      : name = name,
+        id = id;
 
-  AttributeModel(String name) : name = name;
-
-  late int id;
+  int id;
   String name = "";
   String _baseValue = "";
   List<int> effectIds = [];
@@ -12,7 +13,6 @@ abstract class AttributeModel with ChangeNotifier {
   String get finalValue;
 
   String get baseValue => _baseValue;
-
   set baseValue(String newValue) {
     _baseValue = newValue;
     notifyListeners();
@@ -20,14 +20,14 @@ abstract class AttributeModel with ChangeNotifier {
 }
 
 class IntAttributeModel extends AttributeModel {
-  IntAttributeModel(String name) : super(name);
+  IntAttributeModel(String name, int id) : super(name, id);
 
   @override
   String get finalValue => (int.tryParse(_baseValue) ?? 0).toString();
 }
 
 class StringAttributeModel extends AttributeModel {
-  StringAttributeModel(String name) : super(name);
+  StringAttributeModel(String name, int id) : super(name, id);
 
   @override
   String get finalValue => _baseValue;
