@@ -72,7 +72,13 @@ class _OracleHomePageState extends State<OracleHomePage> {
                     AttributeComponent(
                       attribute: character.name,
                     ),
-                    AttributeComponent(attribute: character.hitPoints),
+                    Row(
+                      children: [
+                        Expanded(child: AttributeComponent(attribute: character.race)),
+                        Expanded(child: AttributeComponent(attribute: character.alignment)),
+                        Expanded(child: AttributeComponent(attribute: character.maxHealth)),
+                      ],
+                    ),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,

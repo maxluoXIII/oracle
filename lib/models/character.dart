@@ -10,8 +10,9 @@ class CharacterModel with ChangeNotifier {
   }
 
   CharacterModel()
-      : name = StringAttributeModel("Name", nextId),
-        hitPoints = IntAttributeModel("Health", nextId),
+      : attrMap = Map<int, AttributeModel>(),
+        name = StringAttributeModel("Name", nextId),
+        maxHealth = IntAttributeModel("Health", nextId),
         race = StringAttributeModel("Race", nextId),
         alignment = StringAttributeModel("Alignment", nextId),
         strength = IntAttributeModel("Strength", nextId),
@@ -63,10 +64,32 @@ class CharacterModel with ChangeNotifier {
           IntAttributeModel("Survival", nextId),
           IntAttributeModel("Swim", nextId),
           IntAttributeModel("Use Magic Device", nextId),
-        ];
+        ] {
+    attrMap[name.id] = name;
+    attrMap[maxHealth.id] = maxHealth;
+    attrMap[race.id] = race;
+    attrMap[alignment.id] = alignment;
+
+    attrMap[strength.id] = strength;
+    attrMap[dexterity.id] = dexterity;
+    attrMap[constitution.id] = constitution;
+    attrMap[intelligence.id] = intelligence;
+    attrMap[wisdom.id] = wisdom;
+    attrMap[charisma.id] = charisma;
+
+    attrMap[fortitude.id] = fortitude;
+    attrMap[reflex.id] = reflex;
+    attrMap[will.id] = will;
+
+    for (var skill in skills) {
+      attrMap[skill.id] = skill;
+    }
+  }
+
+  Map<int, AttributeModel> attrMap;
 
   StringAttributeModel name;
-  IntAttributeModel hitPoints;
+  IntAttributeModel maxHealth;
   StringAttributeModel race;
   StringAttributeModel alignment;
 
