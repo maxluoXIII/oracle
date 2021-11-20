@@ -28,6 +28,7 @@ class OracleApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
         brightness: Brightness.dark,
+        dividerTheme: DividerThemeData(indent: 40, endIndent: 40),
       ),
       home: OracleHomePage(title: 'Project Oracle Home Page'),
     );
@@ -54,6 +55,8 @@ class _OracleHomePageState extends State<OracleHomePage> {
     // This method is rerun every time setState is called
     CharacterModel character =
         Provider.of<CharacterModel>(context, listen: false);
+    TextStyle headerTextStyle =
+        TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -64,24 +67,44 @@ class _OracleHomePageState extends State<OracleHomePage> {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: EdgeInsets.only(top: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Center(
+                      child: Text(
+                        "General",
+                        style: headerTextStyle,
+                      ),
+                    ),
                     AttributeComponent(
                       attribute: character.name,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(child: AttributeComponent(attribute: character.race)),
-                        Expanded(child: AttributeComponent(attribute: character.alignment)),
-                        Expanded(child: AttributeComponent(attribute: character.maxHealth)),
+                        Expanded(
+                            child:
+                                AttributeComponent(attribute: character.race)),
+                        Expanded(
+                            child: AttributeComponent(
+                                attribute: character.alignment)),
+                        Expanded(
+                            child: AttributeComponent(
+                                attribute: character.maxHealth)),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    Divider(),
+                    Center(
+                      child: Text(
+                        "Stats",
+                        style: headerTextStyle,
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 1,
@@ -99,6 +122,7 @@ class _OracleHomePageState extends State<OracleHomePage> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 1,
@@ -114,7 +138,7 @@ class _OracleHomePageState extends State<OracleHomePage> {
                                 attribute: character.charisma)),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    Divider(),
                     AttributeComponent(attribute: character.fortitude),
                     AttributeComponent(attribute: character.reflex),
                     AttributeComponent(attribute: character.will)
@@ -122,16 +146,22 @@ class _OracleHomePageState extends State<OracleHomePage> {
                 ),
               ),
             ),
+            VerticalDivider(),
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(top: 5, right: 5),
-                child: ListView(
-                  children: [
-                    for (var skill in character.skills)
-                      AttributeComponent(attribute: skill)
-                  ],
-                ),
+                padding: const EdgeInsets.only(right: 5, top: 10),
+                child: Column(children: [
+                  Text("Skills", style: headerTextStyle),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        for (var skill in character.skills)
+                          AttributeComponent(attribute: skill)
+                      ],
+                    ),
+                  ),
+                ]),
               ),
             )
           ],
